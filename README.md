@@ -1,53 +1,16 @@
-# Express API Starter
+# Endpoint: POST /
 
-How to use this template:
+## Description
+This endpoint is used to authenticate users and generate a JSON Web Token (JWT) for the authenticated user.
 
-```sh
-npx create-express-api --directory my-api-name
-```
+## Request Body
+- `username` (string, required): the username of the user to be authenticated.
+- `password` (string, required): the password of the user to be authenticated.
 
-Includes API Server utilities:
+## Response
+- Status code `200`: if the authentication is successful, the response will contain a JWT in the `data` field of the response body.
+- Status code `400`: if either the `username` or `password` is missing from the request body, the response will contain a message indicating that the fields are missing.
+- Status code `401`: if the provided `password` is incorrect, the response will contain a message indicating that the password is incorrect.
+- Status code `404`: if the `username` does not exist in the database, the response will contain a message indicating that the user was not found.
 
-* [morgan](https://www.npmjs.com/package/morgan)
-  * HTTP request logger middleware for node.js
-* [helmet](https://www.npmjs.com/package/helmet)
-  * Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
-* [dotenv](https://www.npmjs.com/package/dotenv)
-  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`
-* [cors](https://www.npmjs.com/package/cors)
-  * CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
-
-Development utilities:
-
-* [nodemon](https://www.npmjs.com/package/nodemon)
-  * nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-* [eslint](https://www.npmjs.com/package/eslint)
-  * ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-* [jest](https://www.npmjs.com/package/jest)
-  * Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
-* [supertest](https://www.npmjs.com/package/supertest)
-  * HTTP assertions made easy via superagent.
-
-## Setup
-
-```
-npm install
-```
-
-## Lint
-
-```
-npm run lint
-```
-
-## Test
-
-```
-npm test
-```
-
-## Development
-
-```
-npm run dev
-```
+## Example Request

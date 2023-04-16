@@ -28,3 +28,13 @@ Body:
 }
  ```
 ### Response
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+"success": true,
+"message": "User logged in successfully",
+"data": {
+"token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+}

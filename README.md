@@ -1,4 +1,4 @@
-# Endpoint: POST /
+# Endpoint: POST /login
 
 ## Description
 This endpoint is used to authenticate users and generate a JSON Web Token (JWT) for the authenticated user.
@@ -14,3 +14,10 @@ This endpoint is used to authenticate users and generate a JSON Web Token (JWT) 
 - Status code `404`: if the `username` does not exist in the database, the response will contain a message indicating that the user was not found.
 
 ## Example Request
+
+`POST /login`
+Content-Type: application/json
+{
+"username": "john_doe",
+"password": "password123"
+}

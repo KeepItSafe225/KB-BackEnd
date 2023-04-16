@@ -16,7 +16,7 @@ router.post('/', verifyJWT, async (req, res, next) => {
     if (req.user.role !== 'SuperAdmin') {
       return res.status(401).send({
         success: false,
-        message: 'insufficient role',
+        message: 'insufficient role!',
       });
     }
     if (

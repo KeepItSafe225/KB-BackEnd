@@ -16,13 +16,13 @@ This endpoint is used to authenticate users and generate a JSON Web Token (JWT) 
 ## Example Request
 
 `POST /login`
-`Headers:
+``` Headers:
 Content-Type: application/json
 
 Body:
 {
   "username": "john_doe",
   "password": "mypassword123"
-}`
+} ```
 
 ### Response

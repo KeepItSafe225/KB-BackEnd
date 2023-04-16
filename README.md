@@ -18,11 +18,11 @@ This endpoint is used to authenticate users and generate a JSON Web Token (JWT) 
 `POST /login`
 ``` Headers:
 Content-Type: application/json
-
-Body:
+```
+``` Body:
 {
   "username": "john_doe",
   "password": "mypassword123"
-} ```
-
+}
+ ```
 ### Response

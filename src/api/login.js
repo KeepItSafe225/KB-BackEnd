@@ -48,19 +48,20 @@ router.post('/', async (req, res, next) => {
         try {
           const TokenExistsInDB = await prisma.AuthToken.findUnique({
             where: {
-              Username: user.username,
+              id: user.id,
             },
           });
           if (TokenExistsInDB) {
             await prisma.AuthToken.delete({
               where: {
-                Username: user.username,
+                id: user.id,
               },
             });
           }
           await prisma.AuthToken.create({
             data: {
               Username: user.username,
+              id: user.id,
               Token: token,
             },
           });

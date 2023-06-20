@@ -93,6 +93,18 @@ router.put('/', verifyJWT, async (req, res) => {
         password: password ? await bcrypt.hash(password, 10) : undefined,
       },
     });
+    const FetchData = await prisma.AuthToken.findMany({
+      where: {
+        id: id,
+      },
+    });
+    if (FetchData.length !== 0) {
+      await prisma.AuthToken.delete({
+        where: {
+          id: id,
+        },
+      });
+    }
     delete updatedUser.password;
     return res.status(200).send({
       succes: true,

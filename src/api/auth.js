@@ -13,12 +13,12 @@ async function verifyJWT(req, res, next) {
   const token = req.headers['x-access-token'].split(' ')[1];
   if (token) {
     try {
-      const DBToken = await prisma.AuthToken.findUnique({
+      const DBToken = await prisma.AuthToken.findMany({
         where: {
           Token: token,
         },
       });
-      if (!DBToken) {
+      if (DBToken && DBToken.length === 0) {
         return res.status(500).send({
           success: false,
           message: 'Token Not Found in DB! Please Login first',

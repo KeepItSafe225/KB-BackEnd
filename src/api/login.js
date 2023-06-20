@@ -27,7 +27,9 @@ router.post('/', async (req, res, next) => {
   }
   bcrypt.compare(req.body.password, user.password).then((isCorrect) => {
     if (!isCorrect) {
-      res.status(401).send({ sucess: false, message: 'Incorrect Password' });
+      return res
+        .status(401)
+        .send({ sucess: false, message: 'Incorrect Password' });
     }
     const payload = {
       id: user.id,
@@ -41,8 +43,31 @@ router.post('/', async (req, res, next) => {
       {
         expiresIn: 10800,
       },
-      (err, token) => {
+      async (err, token) => {
         if (err) next(err);
+        try {
+          const TokenExistsInDB = await prisma.AuthToken.findUnique({
+            where: {
+              Username: user.username,
+            },
+          });
+          if (TokenExistsInDB) {
+            await prisma.AuthToken.delete({
+              where: {
+                Username: user.username,
+              },
+            });
+          }
+          await prisma.AuthToken.create({
+            data: {
+              Username: user.username,
+              Token: token,
+            },
+          });
+        } catch (error) {
+          next(error);
+        }
+
         return res.status(200).send({
           success: 'true',
           message: 'User logged in successfully',

@@ -24,3 +24,7 @@ model Post {
   authorId  Int
   User      Users     @relation(fields: [authorId], references: [id])
 }
+model AuthToken {
+  Username  String   @unique @db.VarChar(255)
+  Token String @db.VarChar(255)
+}

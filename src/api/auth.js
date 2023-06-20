@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
+const { PrismaClient } = require('@prisma/client');
 
-function verifyJWT(req, res, next) {
+const prisma = new PrismaClient();
+async function verifyJWT(req, res, next) {
   if (!req.headers['x-access-token']) {
     res.status(401).send({
       error: 401,
@@ -10,6 +12,22 @@ function verifyJWT(req, res, next) {
   }
   const token = req.headers['x-access-token'].split(' ')[1];
   if (token) {
+    try {
+      const DBToken = await prisma.AuthToken.findUnique({
+        where: {
+          Token: token,
+        },
+      });
+      if (!DBToken) {
+        return res.status(500).send({
+          success: false,
+          message: 'Token Not Found in DB! Please Login first',
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.status(498).send({

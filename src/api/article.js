@@ -37,6 +37,9 @@ router.post('/', verifyJWT, async (req, res, next) => {
     next(error);
   }
 });
+router.put('/:id', verifyJWT, async (req, res, next) => {
+  const { id } = req.params;
+});
 router.get('/:id?', verifyJWT, async (req, res, next) => {
   try {
     if (req.params.id) return res.status(200).send('got1id');
